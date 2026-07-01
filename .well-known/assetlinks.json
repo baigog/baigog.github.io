@@ -1,0 +1,28 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.python.aniranking",
+      "sha256_cert_fingerprints": [
+        "1D:CB:24:73:C1:9F:2B:CD:52:77:3A:66:A3:70:AE:CE:48:2D:38:1A:48:37:BA:AA:DE:94:07:CC:C2:64:1A:19"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.python.aniranking.debug",
+      "sha256_cert_fingerprints": [
+        "71:56:97:74:2E:E6:BE:4F:EB:05:7D:BB:4F:5F:60:9D:E5:C9:CC:57:57:AE:EC:8E:18:A7:C1:C5:C9:23:A9:95"
+      ]
+    }
+  }
+]
