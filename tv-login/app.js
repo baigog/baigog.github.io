@@ -39,12 +39,22 @@ approveButton.addEventListener("click", async () => {
       throw new Error("Supabase no devolvió una sesión válida.");
     }
 
-    show("Cifrando la sesión para la TV…");
     const secret = fromBase64Url(secretText);
     const secretHash = toBase64Url(new Uint8Array(await crypto.subtle.digest("SHA-256", secret)));
-    const encrypted = await encryptSession(secret, session);
-    await postJson(pairingEndpoint, {
+    show("Preparando una sesión independiente para la TV…");
+    const tvSession = await postJson(pairingEndpoint, {
       action: "approve",
+      pairing_id: pairingId,
+      secret_hash: secretHash,
+    }, session.access_token);
+    if (!tvSession.access_token || !tvSession.refresh_token) {
+      throw new Error("Supabase no devolvió una sesión válida para la TV.");
+    }
+
+    show("Cifrando la sesión para la TV…");
+    const encrypted = await encryptSession(secret, tvSession);
+    await postJson(pairingEndpoint, {
+      action: "confirm",
       pairing_id: pairingId,
       secret_hash: secretHash,
       encrypted_session: encrypted.ciphertext,
